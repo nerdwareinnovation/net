@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class AboutSettings extends Model
+{
+    use HasFactory;
+    
+    protected $fillable = [
+        'vimeo_video_id',
+        'page_title',
+        'subtitle',
+        'description',
+    ];
+}
+
