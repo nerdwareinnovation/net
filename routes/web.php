@@ -16,13 +16,14 @@ use Illuminate\Support\Facades\Route;
 // New Frontend Routes
 Route::get('/', [App\Http\Controllers\FrontController::class, 'index'])->name('front.index');
 Route::get('/about', [App\Http\Controllers\FrontController::class, 'about'])->name('front.about');
-Route::get('/contact', [App\Http\Controllers\FrontController::class, 'contact'])->name('front.contact');
-Route::post('/contact', [App\Http\Controllers\FrontController::class, 'submitContact'])->name('front.contact.submit');
 Route::get('/gallery', [App\Http\Controllers\FrontController::class, 'gallery'])->name('front.gallery');
+Route::get('/gallery/{slug}', [App\Http\Controllers\FrontController::class, 'galleryDetail'])->name('front.gallery.detail');
 Route::get('/films', [App\Http\Controllers\FrontController::class, 'films'])->name('front.films');
+Route::get('/film/{slug}', [App\Http\Controllers\FrontController::class, 'filmDetail'])->name('front.film.detail');
 Route::get('/stories', [App\Http\Controllers\FrontController::class, 'stories'])->name('front.stories');
 Route::get('/story/{slug}', [App\Http\Controllers\FrontController::class, 'storyDetail'])->name('front.story.detail');
-
+Route::get('/contact', [App\Http\Controllers\FrontController::class, 'contact'])->name('front.contact');
+Route::post('/contact', [App\Http\Controllers\FrontController::class, 'submitContact'])->name('front.contact.submit');
 
 Auth::routes();
 Route::group(['middleware' => 'auth', 'prefix' => 'admin/', 'as' => 'admin.'], function () {

@@ -15,6 +15,7 @@ use App\Models\HomepageSettings;
 use App\Models\HomepageSections;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class FrontController extends Controller
 {
@@ -183,6 +184,42 @@ class FrontController extends Controller
         
         return view('frontend.gallery', compact('galleries'));
     }
+
+    public function galleryDetail($slug)
+    {
+        $gallery = Galleries::where('slug', $slug)
+            ->where('status', 'active')
+            ->with(['category'])
+            ->firstOrFail();
+
+        $childImages = [];
+
+        if ($gallery->child_images && is_array($gallery->child_images)) {
+            foreach ($gallery->child_images as $image) {
+                $rawUrl = is_array($image) ? ($image['url'] ?? null) : $image;
+                $resolvedUrl = $this->resolveMediaUrl($rawUrl);
+
+                if (!$resolvedUrl) {
+                    continue;
+                }
+
+                $childImages[] = [
+                    'url' => $resolvedUrl,
+                    'title' => is_array($image) ? ($image['title'] ?? '') : '',
+                    'short_description' => is_array($image) ? ($image['short_description'] ?? '') : '',
+                    'date' => is_array($image) ? ($image['date'] ?? '') : '',
+                ];
+            }
+        }
+
+        $thumbnailUrl = $this->resolveMediaUrl($gallery->thumbnail);
+
+        return view('frontend.gallery-detail', [
+            'gallery' => $gallery,
+            'childImages' => $childImages,
+            'thumbnailUrl' => $thumbnailUrl,
+        ]);
+    }
     
     public function films()
     {
@@ -193,6 +230,23 @@ class FrontController extends Controller
             ->get();
         
         return view('frontend.films', compact('films'));
+    }
+
+    public function filmDetail($slug)
+    {
+        $film = Films::where('slug', $slug)
+            ->where('status', 'active')
+            ->with('category')
+            ->firstOrFail();
+        
+        $otherFilms = Films::where('status', 'active')
+            ->where('id', '!=', $film->id)
+            ->orderBy('position')
+            ->orderBy('created_at', 'desc')
+            ->limit(6)
+            ->get();
+        
+        return view('frontend.film-detail', compact('film', 'otherFilms'));
     }
     
     public function stories()
@@ -250,5 +304,18 @@ class FrontController extends Controller
     {
         $page = SitePages::where('slug', $slug)->first();
         return view('frontend.default-page', compact('page'));
+    }
+
+    private function resolveMediaUrl(?string $path): ?string
+    {
+        if (!$path) {
+            return null;
+        }
+
+        if (Str::startsWith($path, ['http://', 'https://'])) {
+            return $path;
+        }
+
+        return asset($path);
     }
 }

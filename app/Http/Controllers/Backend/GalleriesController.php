@@ -54,10 +54,7 @@ class GalleriesController extends Controller
             $gallery->position = $request->position ?? 0;
             $gallery->status = $request->status ?? 'active';
 
-            if($request->child_images != ''){
-                $images = explode(',', $request->input('child_images'));
-                $gallery->child_images = $images;
-            }
+            $gallery->child_images = $this->prepareChildImages($request->input('child_images'));
 
             $gallery->save();
             DB::commit();
@@ -104,10 +101,7 @@ class GalleriesController extends Controller
             $gallery->position = $request->position ?? 0;
             $gallery->status = $request->status ?? 'active';
 
-            if($request->child_images != ''){
-                $images = explode(',', $request->input('child_images'));
-                $gallery->child_images = $images;
-            }
+            $gallery->child_images = $this->prepareChildImages($request->input('child_images'));
 
             $gallery->save();
             DB::commit();
@@ -132,8 +126,9 @@ class GalleriesController extends Controller
 
             if ($gallery->child_images && is_array($gallery->child_images)) {
                 foreach ($gallery->child_images as $image) {
-                    if ($image && Storage::disk('public')->exists($image)) {
-                        Storage::disk('public')->delete($image);
+                    $imagePath = is_array($image) ? ($image['url'] ?? null) : $image;
+                    if ($imagePath && Storage::disk('public')->exists($imagePath)) {
+                        Storage::disk('public')->delete($imagePath);
                     }
                 }
             }
@@ -150,6 +145,43 @@ class GalleriesController extends Controller
             return redirect()->route('admin.galleries.index')
                 ->with('error', 'Failed to delete gallery.');
         }
+    }
+    private function prepareChildImages(?string $childImagesInput): ?array
+    {
+        if (!$childImagesInput) {
+            return null;
+        }
+
+        $decoded = json_decode($childImagesInput, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE || !is_array($decoded)) {
+            return null;
+        }
+
+        $normalized = [];
+
+        foreach ($decoded as $image) {
+            if (is_string($image) && $image !== '') {
+                $normalized[] = [
+                    'url' => $image,
+                    'title' => '',
+                    'short_description' => '',
+                    'date' => '',
+                ];
+                continue;
+            }
+
+            if (is_array($image) && !empty($image['url'])) {
+                $normalized[] = [
+                    'url' => $image['url'],
+                    'title' => $image['title'] ?? '',
+                    'short_description' => $image['short_description'] ?? '',
+                    'date' => $image['date'] ?? '',
+                ];
+            }
+        }
+
+        return count($normalized) ? $normalized : null;
     }
 }
 

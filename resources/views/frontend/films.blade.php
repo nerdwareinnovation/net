@@ -15,7 +15,7 @@
             <div class="films-slider-container" id="films-slider-container">
                 @forelse($films as $film)
                     <div class="film-poster-item">
-                        <div class="film-poster-image">
+                        <div class="film-poster-image" onclick="location.href='{{ route('front.film.detail', $film->slug) }}'">
                             @if($film->film_poster)
                                 <img src="{{asset($film->film_poster)}}" alt="{{$film->title}}">
                             @else
@@ -33,74 +33,7 @@
             </div>
         </div>
 
-        <div class="footer" style="display: none;">
-           <div class="wrap">
-               <div class="wrap_float">
-                   <div class="footer_top">
-                       <div class="left">
-                           <div class="col">
-                               <div class="_title m_title">Quick Links</div>
-                               <ul>
-                                   <li><a href="{{route('front.stories')}}">Stories</a></li>
-                                   <li><a href="{{route('front.gallery')}}">Gallery</a></li>
-                                   <li><a href="{{route('front.films')}}">Films</a></li>
-                                   <li><a href="travel-list-left-sidebar.html">Words</a></li>
-                                   <li><a href="travel-list-image-header.html">Photos</a></li>
-                                   <li><a href="search-results.html">Special</a></li>
-                               </ul>
-                           </div>
-                           <div class="col">
-                               <div class="_title m_title" style="opacity: 0">Page</div>
-                               <ul>
-                                   <li><a href="{{route('front.about')}}">About</a></li>
-                                   <li><a href="story.html">Support</a></li>
-                                   <li><a href="{{route('front.contact')}}">Contact</a></li>
-                               </ul>
-                           </div>
-                           <div class="col">
-                               <div class="_title m_title" style="opacity: 0">Blog</div>
-                               <ul>
-                                   <li><a href="blog-full-width.html">FAQs</a></li>
-                                   <li><a href="blog-full-width.html">Videos</a></li>
-                                   <li><a href="blog-right-sidebar.html">Advertise With Us</a></li>
-                               </ul>
-                           </div>
-                       </div>
-                       <div class="right">
-                           <div class="_title">Reach Out</div>
-                           <div class="contacts_info">
-                               <div class="tel">
-                                   <a href="tel:+19092020119">+ 977 980000000</a>
-                               </div>
-                               <div class="email">
-                                   <a href="mailto:info@hellodigi.ru">info@neverendingtrails.com</a>
-                                   <p>For any queries.</p>
-                               </div>
-                               <div class="address">
-                                   Lalitpur, Nepal
-                               </div>
-                           </div>
-                           <div class="socials social-links">
-                               <a href="#" class="link facebook"><span></span></a>
-                               <a href="#" class="link instagram"><span></span></a>
-                               <a href="#" class="link twitter"><span></span></a>
-                               <a href="#" class="link youtube"><span></span></a>
-                           </div>
-                       </div>
-                   <div class="footer_bottom">
-                       <div class="left">
-                           <a href="#" style="color: rgba(255, 255, 255, 0.8)">Privacy Policy</a>
-                       </div>
-                       <div class="right">
-                           Copyright &copy; 2025 by Never Ending Trails. All Rights Reserved.
-                       </div>
-                   </div>
-               </div>
-           </div>
-       </div>
 
-    </div>
-    
     <script src="{{asset('assets/js/818-js-jquery.min.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -231,6 +164,6 @@
             });
         })();
     </script>
-</body>
-</html>
+{{--</body>--}}
+{{--</html>--}}
 @endsection

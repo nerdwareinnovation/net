@@ -1,6 +1,22 @@
 @extends('backend.partials.master')
 
 @section('content')
+@php
+    $extractGalleryImagePath = function ($childImages) {
+        if (!$childImages || !is_array($childImages)) {
+            return null;
+        }
+
+        foreach ($childImages as $image) {
+            $path = is_array($image) ? ($image['url'] ?? null) : $image;
+            if ($path) {
+                return $path;
+            }
+        }
+
+        return null;
+    };
+@endphp
     <div class="d-flex flex-column flex-column-fluid">
         <!--begin::Toolbar-->
         <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
@@ -103,7 +119,8 @@
                                                 } elseif($section->item_type == 'gallery') {
                                                     $item = \App\Models\Galleries::find($section->item_id);
                                                     if($item) {
-                                                        $itemImage = $item->thumbnail ?? (is_array($item->child_images) && count($item->child_images) > 0 ? $item->child_images[0] : null);
+                                                        $firstChildImage = $extractGalleryImagePath($item->child_images ?? []);
+                                                        $itemImage = $item->thumbnail ?? $firstChildImage;
                                                     }
                                                 }
                                             @endphp
@@ -254,7 +271,8 @@
                                                 } elseif($section->item_type == 'gallery') {
                                                     $item = \App\Models\Galleries::find($section->item_id);
                                                     if($item) {
-                                                        $itemImage = $item->thumbnail ?? (is_array($item->child_images) && count($item->child_images) > 0 ? $item->child_images[0] : null);
+                                                        $firstChildImage = $extractGalleryImagePath($item->child_images ?? []);
+                                                        $itemImage = $item->thumbnail ?? $firstChildImage;
                                                     }
                                                 }
                                             @endphp

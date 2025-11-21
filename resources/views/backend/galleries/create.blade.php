@@ -140,7 +140,15 @@
                                                         <i class="fa fa-trash"></i> Clear All
                                                     </button>
                                                 </div>
-                                                <input id="child_images" type="hidden" name="child_images" value="{{isset($gallery) && $gallery->child_images ? implode(',', $gallery->child_images) : ''}}">
+                                                @php
+                                                    $childImagesValue = old('child_images');
+                                                    if (!$childImagesValue) {
+                                                        $childImagesValue = isset($gallery) && $gallery->child_images
+                                                            ? json_encode($gallery->child_images)
+                                                            : json_encode([]);
+                                                    }
+                                                @endphp
+                                                <input id="child_images" type="hidden" name="child_images" value="{{ $childImagesValue }}">
                                                 
                                                 <div id="holder1" class="image-gallery">
                                                     <!-- Images will be rendered here by JavaScript -->
@@ -225,15 +233,51 @@
             
             initializeThumbnail();
             
-            // Child Images Management (Multiple) with Drag and Drop
+            // Child Images Management (Multiple) with Drag and Drop + metadata
             let currentImages = [];
             let draggedElement = null;
             
+            function getEmptyMeta(url = '') {
+                return {
+                    url: url ? url.trim() : '',
+                    title: '',
+                    short_description: '',
+                    date: '',
+                };
+            }
+            
             function initializeImages() {
-                const imageUrls = $('#child_images').val();
-                if (imageUrls) {
-                    currentImages = imageUrls.split(',').filter(url => url.trim() !== '');
+                currentImages = [];
+                const rawValue = $('#child_images').val();
+                
+                if (rawValue) {
+                    try {
+                        const parsed = JSON.parse(rawValue);
+                        if (Array.isArray(parsed)) {
+                            currentImages = parsed
+                                .map(item => {
+                                    if (typeof item === 'string') {
+                                        return getEmptyMeta(item);
+                                    }
+                                    
+                                    if (item && typeof item === 'object') {
+                                        return {
+                                            url: item.url ? item.url.trim() : '',
+                                            title: item.title || '',
+                                            short_description: item.short_description || '',
+                                            date: item.date || '',
+                                        };
+                                    }
+                                    
+                                    return null;
+                                })
+                                .filter(item => item && item.url);
+                        }
+                    } catch (error) {
+                        console.error('Failed to parse child images payload', error);
+                    }
                 }
+                
                 renderImages();
             }
             
@@ -243,15 +287,15 @@
                 
                 if (currentImages.length === 0) {
                     holder.html('<p class="text-muted">No images selected. Click "Add Images" to select images.</p>');
-                    $('#child_images').val('');
+                    $('#child_images').val('[]');
                     return;
                 }
                 
-                currentImages.forEach((url, index) => {
+                currentImages.forEach((image, index) => {
                     const imageItem = $(`
                         <div class="image-item" draggable="true" data-index="${index}">
                             <div class="image-wrapper">
-                                <img src="${url.trim()}" alt="Image ${index + 1}">
+                                <img src="${image.url}" alt="Image ${index + 1}">
                                 <button type="button" class="btn-delete" data-index="${index}" title="Remove image">
                                     <i class="fa fa-times"></i>
                                 </button>
@@ -260,8 +304,18 @@
                                 </div>
                                 <div class="image-order">${index + 1}</div>
                             </div>
+                            <div class="image-meta mt-3">
+                                <input type="text" class="form-control form-control-sm mb-2 image-field" data-index="${index}" data-field="title" placeholder="Title (optional)">
+                                <textarea class="form-control form-control-sm mb-2 image-field" data-index="${index}" data-field="short_description" rows="2" placeholder="Short description (optional)"></textarea>
+                                <input type="date" class="form-control form-control-sm image-field" data-index="${index}" data-field="date" placeholder="Date (optional)">
+                            </div>
                         </div>
                     `);
+                    
+                    imageItem.find('.image-field[data-field="title"]').val(image.title || '');
+                    imageItem.find('.image-field[data-field="short_description"]').val(image.short_description || '');
+                    imageItem.find('.image-field[data-field="date"]').val(image.date || '');
+                    
                     holder.append(imageItem);
                 });
                 
@@ -270,7 +324,7 @@
             }
             
             function updateHiddenInput() {
-                $('#child_images').val(currentImages.join(','));
+                $('#child_images').val(JSON.stringify(currentImages));
             }
             
             $('#addMoreImages').on('click', function() {
@@ -279,11 +333,9 @@
             });
             
             $('#clearAllImages').on('click', function() {
-                if (currentImages.length > 0) {
-                    if (confirm('Are you sure you want to remove all images?')) {
-                        currentImages = [];
-                        renderImages();
-                    }
+                if (currentImages.length > 0 && confirm('Are you sure you want to remove all images?')) {
+                    currentImages = [];
+                    renderImages();
                 }
             });
             
@@ -291,6 +343,18 @@
                 const index = $(this).data('index');
                 currentImages.splice(index, 1);
                 renderImages();
+            });
+            
+            $(document).on('input change', '.image-field', function() {
+                const index = $(this).data('index');
+                const field = $(this).data('field');
+                
+                if (typeof index === 'undefined' || !currentImages[index]) {
+                    return;
+                }
+                
+                currentImages[index][field] = $(this).val();
+                updateHiddenInput();
             });
             
             // Drag and Drop functionality
@@ -370,7 +434,7 @@
                     $('#thumbnail').val(thumbnailUrl);
                     renderThumbnail();
                 } else {
-                    // Handle multiple images
+                    // Handle multiple images with metadata placeholder
                     let newUrls = [];
                     if (Array.isArray(items)) {
                         newUrls = items.map(item => item.url || item).filter(url => url);
@@ -378,10 +442,15 @@
                         newUrls = [items.url || items];
                     }
                     
-                    // Add new images to existing ones
                     newUrls.forEach(url => {
-                        if (url && !currentImages.includes(url)) {
-                            currentImages.push(url);
+                        const normalizedUrl = typeof url === 'string' ? url.trim() : url;
+                        if (!normalizedUrl) {
+                            return;
+                        }
+                        
+                        const exists = currentImages.some(image => image.url === normalizedUrl);
+                        if (!exists) {
+                            currentImages.push(getEmptyMeta(normalizedUrl));
                         }
                     });
                     
@@ -522,6 +591,10 @@
         .drag-handle:hover {
             background: #6c757d;
             transform: scale(1.1);
+        }
+        
+        .image-meta .form-control {
+            font-size: 12px;
         }
         
         .image-order {

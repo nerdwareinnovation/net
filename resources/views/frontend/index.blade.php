@@ -57,6 +57,20 @@
                    </div>
                    <div class="section_content">
                        <div class="tour-slider" id="tour-slider">
+                           @php
+                               $getFirstGalleryChildImage = function($childImages) {
+                                   if (!$childImages || !is_array($childImages)) {
+                                       return null;
+                                   }
+                                   foreach ($childImages as $image) {
+                                       $path = is_array($image) ? ($image['url'] ?? null) : $image;
+                                       if ($path) {
+                                           return $path;
+                                       }
+                                   }
+                                   return null;
+                               };
+                           @endphp
                            @foreach($sliderItems as $sliderItem)
                            <div class="tour_item_wrapper">
                                @php
@@ -80,7 +94,8 @@
                                        $link = route('front.films');
                                        $date = $item->release_date ? \Carbon\Carbon::parse($item->release_date)->format('M d, Y') : '';
                                    } elseif($sliderItem['type'] == 'gallery') {
-                                       $image = $item->thumbnail ?? (is_array($item->child_images) && count($item->child_images) > 0 ? $item->child_images[0] : 'assets/images/specials/1.webp');
+                                       $firstChildImage = $getFirstGalleryChildImage($item->child_images ?? []);
+                                       $image = $item->thumbnail ?? ($firstChildImage ?: 'assets/images/specials/1.webp');
                                        $title = $item->title;
                                        $description = Str::limit(strip_tags($item->description ?? ''), 120);
                                        $link = route('front.gallery');
@@ -168,7 +183,7 @@
                        <h2 class="title">Latest Stories</h2>
                    </div>
                    <div class="posts">
-                       @foreach($contentItems as $contentItem)
+                           @foreach($contentItems as $contentItem)
                        @php
                            $item = $contentItem['item'];
                            $image = '';
@@ -187,7 +202,8 @@
                                $description = Str::limit(strip_tags($item->synopsis ?? $item->description ?? ''), 120);
                                $link = route('front.films');
                            } elseif($contentItem['type'] == 'gallery') {
-                               $image = $item->thumbnail ?? (is_array($item->child_images) && count($item->child_images) > 0 ? $item->child_images[0] : 'assets/images/specials/3.webp');
+                               $firstChildImage = $getFirstGalleryChildImage($item->child_images ?? []);
+                               $image = $item->thumbnail ?? ($firstChildImage ?: 'assets/images/specials/3.webp');
                                $title = $item->title;
                                $description = Str::limit(strip_tags($item->description ?? ''), 120);
                                $link = route('front.gallery');
