@@ -264,6 +264,9 @@
 @endpush
 
 @section('content')
+    @php
+        $childImages = is_array($gallery->child_images) ? $gallery->child_images : [];
+    @endphp
     @foreach(['first','second','third'] as $section)
         <section class="{{ $section }}">
             <div class="outer">
@@ -275,9 +278,12 @@
                                 <h2 class="section-heading full">{{ $gallery->title }}</h2>
 
                                 <div class="thumb-group" onclick="gotoSection(1, 1)">
-                                    <img src="https://picsum.photos/500/700?random=1" class="thumb" alt="">
-                                    <img src="https://picsum.photos/500/700?random=2" class="thumb" alt="">
-                                    <img src="https://picsum.photos/500/700?random=3" class="thumb" alt="">
+{{--                                    <img src="https://picsum.photos/500/700?random=1" class="thumb" alt="">--}}
+{{--                                    <img src="https://picsum.photos/500/700?random=2" class="thumb" alt="">--}}
+{{--                                    <img src="https://picsum.photos/500/700?random=3" class="thumb" alt="">--}}
+                                    @foreach(array_slice($childImages, 0, 3) as $i => $img)
+                                        <img src="{{ $img['url'] }}" class="thumb" alt="{{ $img['title'] }}">
+                                    @endforeach
                                 </div>
 
                                 <div class="category-badge">
@@ -295,30 +301,50 @@
                                 <h5 style="text-transform: uppercase; margin-top: 50px; font-weight: 600; cursor: pointer" onclick="gotoSection(2, 1)">Read More</h5>
                             </div>
                         @elseif($loop->iteration == 3)
-                            @php
-                                $galleryMeta = [
-                                    ['title'=>'Sunset Over Hills', 'desc'=>'A beautiful sunset over rolling hills with golden light.', 'date'=>'Nov 1, 2025'],
-                                    ['title'=>'Forest Trail', 'desc'=>'Walking through a serene forest trail surrounded by tall trees.', 'date'=>'Nov 2, 2025'],
-                                    ['title'=>'Mountain Lake', 'desc'=>'A calm mountain lake reflecting the snowy peaks above.', 'date'=>'Nov 3, 2025'],
-                                    ['title'=>'City Skyline', 'desc'=>'A bustling city skyline at dusk with glowing lights.', 'date'=>'Nov 4, 2025'],
-                                    ['title'=>'Desert Dunes', 'desc'=>'Golden sand dunes under a clear blue sky.', 'date'=>'Nov 5, 2025'],
-                                    ['title'=>'Ocean Waves', 'desc'=>'Crashing ocean waves along a rocky shore.', 'date'=>'Nov 6, 2025'],
-                                    ['title'=>'Foggy Forest', 'desc'=>'A mysterious fog covering a dense forest.', 'date'=>'Nov 7, 2025'],
-                                    ['title'=>'Autumn Leaves', 'desc'=>'Trees with vibrant autumn leaves in a park.', 'date'=>'Nov 8, 2025'],
-                                    ['title'=>'Snowy Mountain', 'desc'=>'A snow-capped mountain peak under sunlight.', 'date'=>'Nov 9, 2025'],
-                                    ['title'=>'Night Stars', 'desc'=>'A starry night sky over a calm lake.', 'date'=>'Nov 10, 2025'],
-                                ];
-                            @endphp
+{{--                            @php--}}
+{{--                                $galleryMeta = [--}}
+{{--                                    ['title'=>'Sunset Over Hills', 'desc'=>'A beautiful sunset over rolling hills with golden light.', 'date'=>'Nov 1, 2025'],--}}
+{{--                                    ['title'=>'Forest Trail', 'desc'=>'Walking through a serene forest trail surrounded by tall trees.', 'date'=>'Nov 2, 2025'],--}}
+{{--                                    ['title'=>'Mountain Lake', 'desc'=>'A calm mountain lake reflecting the snowy peaks above.', 'date'=>'Nov 3, 2025'],--}}
+{{--                                    ['title'=>'City Skyline', 'desc'=>'A bustling city skyline at dusk with glowing lights.', 'date'=>'Nov 4, 2025'],--}}
+{{--                                    ['title'=>'Desert Dunes', 'desc'=>'Golden sand dunes under a clear blue sky.', 'date'=>'Nov 5, 2025'],--}}
+{{--                                    ['title'=>'Ocean Waves', 'desc'=>'Crashing ocean waves along a rocky shore.', 'date'=>'Nov 6, 2025'],--}}
+{{--                                    ['title'=>'Foggy Forest', 'desc'=>'A mysterious fog covering a dense forest.', 'date'=>'Nov 7, 2025'],--}}
+{{--                                    ['title'=>'Autumn Leaves', 'desc'=>'Trees with vibrant autumn leaves in a park.', 'date'=>'Nov 8, 2025'],--}}
+{{--                                    ['title'=>'Snowy Mountain', 'desc'=>'A snow-capped mountain peak under sunlight.', 'date'=>'Nov 9, 2025'],--}}
+{{--                                    ['title'=>'Night Stars', 'desc'=>'A starry night sky over a calm lake.', 'date'=>'Nov 10, 2025'],--}}
+{{--                                ];--}}
+{{--                            @endphp--}}
+{{--                            <div class="gallery-stack-wrapper" style="width: 100%;">--}}
+{{--                                <div class="thumb-group stack-gallery">--}}
+{{--                                    @foreach($galleryMeta as $i => $item)--}}
+{{--                                        <img src="https://picsum.photos/500/700?random={{ $i+1 }}"--}}
+{{--                                             class="thumb stack-thumb"--}}
+{{--                                             data-index="{{ $i }}"--}}
+{{--                                             data-title="{{ $item['title'] }}"--}}
+{{--                                             data-desc="{{ $item['desc'] }}"--}}
+{{--                                             data-date="{{ $item['date'] }}"--}}
+{{--                                             alt="">--}}
+{{--                                    @endforeach--}}
+{{--                                </div>--}}
+
+{{--                                <div class="thumb-meta">--}}
+{{--                                    <h2 class="section-heading-child"></h2>--}}
+{{--                                    <p class="thumb-desc"></p>--}}
+{{--                                    <span class="thumb-date"></span>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+                            {{-- Third section: stack gallery --}}
                             <div class="gallery-stack-wrapper" style="width: 100%;">
                                 <div class="thumb-group stack-gallery">
-                                    @foreach($galleryMeta as $i => $item)
-                                        <img src="https://picsum.photos/500/700?random={{ $i+1 }}"
+                                    @foreach($childImages as $i => $img)
+                                        <img src="{{ $img['url'] }}"
                                              class="thumb stack-thumb"
                                              data-index="{{ $i }}"
-                                             data-title="{{ $item['title'] }}"
-                                             data-desc="{{ $item['desc'] }}"
-                                             data-date="{{ $item['date'] }}"
-                                             alt="">
+                                             data-title="{{ $img['title'] }}"
+                                             data-desc="{{ $img['short_description'] }}"
+                                             data-date="{{ $img['date'] }}"
+                                             alt="{{ $img['title'] }}">
                                     @endforeach
                                 </div>
 
@@ -399,57 +425,6 @@
 
             currentIndex = index;
         }
-
-        // -------------------- SHOW THUMB --------------------
-        // function showThumb(index) {
-        //     const total = thumbs.length;
-        //     const visibleAbove = 3;
-        //     const baseTop = 70;   // current card base position in %
-        //     const spacingY = 15;  // vertical spacing between stacked cards
-        //     const scaleStep = 0.1;
-        //     const zStep = 120;
-        //     const duration = 1.2;
-        //
-        //     thumbs.forEach((thumb, i) => {
-        //         thumb.style.transition = `transform ${duration}s cubic-bezier(0.22, 1, 0.36, 1)`;
-        //         const relativeIndex = i - index;
-        //
-        //         if (relativeIndex === 0) {
-        //             // current card
-        //             thumb.style.zIndex = total;
-        //             thumb.style.transform = `translate(-50%, -50%) translateY(${baseTop}%) translateZ(0px) scale(1)`;
-        //             thumb.style.pointerEvents = "auto";
-        //             thumb.style.display = "block";
-        //         } else if (relativeIndex > 0 && relativeIndex <= visibleAbove) {
-        //             // cards above current
-        //             const offset = relativeIndex;
-        //             const scale = 1 - offset * scaleStep;
-        //             const zMove = -offset * zStep;
-        //             const yOffset = baseTop - offset * spacingY; // offset from baseTop
-        //
-        //             thumb.style.zIndex = total - offset;
-        //             thumb.style.transform = `translate(-50%, -50%) translateY(${yOffset}%) translateZ(${zMove}px) scale(${scale})`;
-        //             thumb.style.pointerEvents = "auto";
-        //             thumb.style.display = "block";
-        //         } else if (relativeIndex < 0) {
-        //             // old current / cards below: drop smoothly
-        //             thumb.style.zIndex = total - visibleAbove - 1;
-        //             thumb.style.transform = `translate(-50%, -50%) translateY(200%) translateZ(0px) scale(0.8)`;
-        //             thumb.style.pointerEvents = "none";
-        //             thumb.style.display = "block";
-        //
-        //             setTimeout(() => {
-        //                 thumb.style.display = "none";
-        //             }, duration * 1000);
-        //         } else {
-        //             // far away cards above
-        //             thumb.style.zIndex = 0;
-        //             thumb.style.transform = `translate(-50%, -50%) translateY(-9999px) scale(0.5)`;
-        //             thumb.style.pointerEvents = "none";
-        //             thumb.style.display = "none";
-        //         }
-        //     });
-        // }
 
         function showThumb(index, scrollingDown = true) {
             const total = thumbs.length;
