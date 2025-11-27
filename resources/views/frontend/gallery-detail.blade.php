@@ -263,6 +263,11 @@
             padding-right: 2vw;
         }
 
+        @media (max-width: 2400px) {
+            .stack-thumb{
+                max-width: 80vw;
+            }
+        }
         @media (max-width: 1800px) {
 
             .stack-gallery .thumb {
