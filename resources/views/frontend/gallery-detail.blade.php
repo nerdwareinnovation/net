@@ -488,15 +488,20 @@
                         {{-- THIRD SECTION --}}
                         @if($section === 'third')
                             <div class="gallery-stack-wrapper">
-                                <div class="thumb-group stack-gallery">
+{{--                                <div class="thumb-group stack-gallery">--}}
+                                {{-- LightGallery wrapper --}}
+                                <div id="child-gallery-container" class="thumb-group stack-gallery">
                                     @foreach($childImages as $i => $img)
                                         <img src="{{ $img['url'] }}"
-                                             class="thumb stack-thumb"
+                                             class="thumb stack-thumb child-gallery-item"
                                              data-index="{{ $i }}"
                                              data-title="{{ $img['title'] }}"
                                              data-desc="{{ $img['short_description'] }}"
                                              data-date="{{ $img['date'] }}"
-                                             alt="{{ $img['title'] }}">
+                                             alt="{{ $img['title'] }}"
+                                             data-lg-size="1600-1067"
+                                             data-src="{{ $img['url'] }}"
+                                        >
                                     @endforeach
                                 </div>
 
@@ -697,6 +702,30 @@
         // -------------------- INITIALIZE --------------------
         showThumb(currentThumb);
         gotoSection(0,1);
+    </script>
+    <script>
+        (function() {
+            if (typeof jQuery !== 'undefined' && jQuery.fn.slick) {
+                jQuery(document).ready(function($) {
+
+                    // -------------------- LIGHT GALLERY INITIALIZATION --------------------
+                    if ($.fn.lightGallery) {
+                        $('#child-gallery-container').lightGallery({
+                            selector: '.child-gallery-item',
+                            mode: 'lg-slide',
+                            speed: 600,
+                            download: false,
+                            share: false,
+                            actualSize: true,
+                            enableTouch: true,
+                            enableDrag: true
+                        });
+                    }
+
+                });
+            }
+        })();
+
     </script>
 @endpush
 
