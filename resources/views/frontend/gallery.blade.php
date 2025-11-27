@@ -71,6 +71,7 @@
     <!-- Gallery Script - Clean Simple Masonry -->
     <script>
         // Optimized Gallery Script - Mobile Friendly with Responsive Columns
+        // Optimized Gallery Script - Mobile Friendly with Responsive Columns
         (function() {
             'use strict';
 
