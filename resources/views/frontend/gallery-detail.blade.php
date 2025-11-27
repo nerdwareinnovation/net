@@ -83,7 +83,7 @@
             top: 0px;
             left: 20px;
             z-index: 10;
-            width: 400px;
+            width: 300px;
             text-align: left;
             font-size: 35px;
             font-weight: 600;
@@ -138,6 +138,29 @@
             left: 50%;
             transform: translateX(30px) translateY(180px) scale(.9);
             z-index: 4;
+        }
+
+        .stack-gallery .thumb:nth-child(1) {
+            /*left: 50%;*/
+            transform: translateX(calc(-100% - 30px)) translateY(140px) scale(.88);
+            z-index: 1;
+        }
+
+        .stack-gallery .thumb:nth-child(2) {
+            left: 50%;
+            transform: translateX(-50%) translateY(-5px) scale(1.04);
+            z-index: 3;
+            height: 80%;
+        }
+
+        .stack-gallery .thumb:nth-child(3) {
+            left: 50%;
+            transform: translateX(30px) translateY(180px) scale(.9);
+            z-index: 4;
+        }
+
+        .stack-gallery .thumb{
+            height: inherit!important;
         }
 
         .category-badge {
@@ -199,7 +222,8 @@
                     transform 0.8s ease,
                     opacity 0.8s ease,
                     filter 0.8s ease;
-            width: 400px;
+            /*width: 400px;*/
+            width: auto;
             transform-origin: center center;
             cursor: grab;
         }
@@ -234,7 +258,7 @@
             top: 0px;
             right: 0px;
             z-index: 10;
-            width: 350px;
+            width: 280px;
             text-align: left;
             font-size: 17px;
             font-weight: 500;
@@ -250,7 +274,7 @@
             top: 30vh;
             right: 0px;
             z-index: 10;
-            width: 350px;
+            width: 280px;
             text-align: left;
             font-size: 17px;
             font-weight: 500;
@@ -429,7 +453,7 @@
         function showThumb(index, scrollingDown = true) {
             const total = thumbs.length;
             const visibleAbove = 3;
-            const baseTop = 70;
+            const baseTop = 60;
             const spacingY = 15;
             const scaleStep = 0.1;
             const zStep = 120;
@@ -453,8 +477,9 @@
                 translate(-50%, -50%)
                 translateY(${baseTop}%)
                 translateZ(0px)
-                scaleX(1.3) scaleY(1.05)
+                scaleX(1) scaleY(1)
             `;
+                    // scaleX(1.3) scaleY(1.05)
                     thumb.style.pointerEvents = "auto";
                     thumb.style.display = "block";
                 } else if (relativeIndex > 0 && relativeIndex <= visibleAbove) {

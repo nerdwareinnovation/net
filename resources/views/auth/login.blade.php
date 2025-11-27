@@ -79,25 +79,16 @@
 <html lang="en" >
 <!--begin::Head-->
 <head>
-    <title>Happy Lemon Tree - Backoffice</title>
+    <title>Never Ending Trails - Backoffice</title>
     <meta charset="utf-8"/>
-    <meta name="description" content="
-            The most advanced Tailwind CSS & Bootstrap 5 Admin Theme with 40 unique prebuilt layouts on Themeforest trusted by 100,000 beginners and professionals. Multi-demo,
-            Dark Mode, RTL support and complete React, Angular, Vue, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js, Node.js, Flask, Symfony & Laravel versions.
-            Grab your copy now and get life-time updates for free.
-        "/>
-    <meta name="keywords" content="
-            tailwind, tailwindcss, metronic, bootstrap, bootstrap 5, angular, VueJs, React, Asp.Net Core, Rails, Spring, Blazor, Django, Express.js,
-            Node.js, Flask, Symfony & Laravel starter kits, admin themes, web design, figma, web development, free templates,
-            free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button,
-            bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon
-        "/>
+    <meta name="description" content="Never Ending Trails"/>
+    <meta name="keywords" content="Never Ending Trails"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Metronic - The World's #1 Selling Tailwind CSS & Bootstrap Admin Template by KeenThemes" />
-    <meta property="og:url" content="https://keenthemes.com/metronic"/>
-    <meta property="og:site_name" content="Metronic by Keenthemes" />
+    <meta property="og:title" content="Never Ending Trails" />
+    <meta property="og:url" content="https://neverendingtrails.com/"/>
+    <meta property="og:site_name" content="Never Ending Trails" />
     <link rel="canonical" href="https://preview.keenthemes.com{{asset('backend/assets/authentication/layouts/fancy/sign-up.html')}}"/>
     <link rel="shortcut icon" href="{{asset('backend/assets/media/logos/favicon.ico')}}"/>
 
@@ -210,7 +201,7 @@
                         <div class="text-start mb-10">
                             <!--begin::Title-->
                             <h5 class="text-gray-900 mb-3 fs-2x" data-kt-translate="sign-up-title">
-                             Login to Happy Lemon Tree
+                             Login to Never Ending Trails
                             </h5>
                             <!--end::Title-->
 
@@ -344,36 +335,39 @@
 
         <!--begin::Body-->
         <div class="d-none d-lg-flex flex-lg-row-fluid w-50 bgi-size-cover bgi-position-y-center bgi-position-x-start bgi-no-repeat position-relative"
-             style="background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);">
+             style="background: linear-gradient(135deg, #050505 0%, #0a0f1f 45%, #1c2a3a 100%);
+">
             <!-- Overlay Pattern -->
             <div class="position-absolute w-100 h-100" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23ffffff&quot; fill-opacity=&quot;0.05&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E'); opacity: 0.3;"></div>
             
             <!-- Content Overlay -->
             <div class="d-flex flex-column justify-content-center align-items-center w-100 px-10 position-relative" style="z-index: 1;">
                 <div class="text-center mb-10">
-                    <i class="fa fa-tree" style="font-size: 80px; color: rgba(255,255,255,0.9); margin-bottom: 20px;"></i>
-                    <h2 class="text-white fw-bold fs-2x mb-5">Welcome to Happy Lemon Tree</h2>
-                    <p class="text-white fs-4 fw-semibold" style="opacity: 0.9; max-width: 500px; line-height: 1.6;">
-                        Your gateway to unforgettable stays, amazing tours, and unique experiences
+                    <i class="fa fa-motorcycle" style="font-size: 80px; color: rgba(255,255,255,0.9); margin-bottom: 20px;"></i>
+                    <h2 class="text-white fw-bold fs-2x mb-5">Welcome to Never Ending Trails</h2>
+                    <p class="text-white fs-4 fw-semibold" style="opacity: 0.9; max-width: 600px; line-height: 1.6;">
+                        A community built for discovering trails, exploring the outdoors, creating projects,
+                        and telling unforgettable stories through machines, adventure, and film.
                     </p>
                 </div>
-                
+
                 <!-- Feature Pills -->
                 <div class="d-flex flex-wrap justify-content-center gap-3 mt-5">
                     <div class="badge badge-light-primary" style="padding: 12px 20px; font-size: 14px; background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3);">
-                        <i class="fa fa-bed me-2"></i>Luxury Stays
+                        <i class="fa fa-route me-2"></i>Trail Discovery
                     </div>
                     <div class="badge badge-light-success" style="padding: 12px 20px; font-size: 14px; background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3);">
-                        <i class="fa fa-map-marker-alt me-2"></i>Guided Tours
+                        <i class="fa fa-motorcycle me-2"></i>2W & 4W Adventures
                     </div>
                     <div class="badge badge-light-info" style="padding: 12px 20px; font-size: 14px; background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3);">
-                        <i class="fa fa-compass me-2"></i>Experiences
+                        <i class="fa fa-tools me-2"></i>Project Builds
                     </div>
                     <div class="badge badge-light-warning" style="padding: 12px 20px; font-size: 14px; background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3);">
-                        <i class="fa fa-shopping-cart me-2"></i>Products
+                        <i class="fa fa-video me-2"></i>Films & Stories
                     </div>
                 </div>
             </div>
+
         </div>
         <!--end::Body-->
     </div>

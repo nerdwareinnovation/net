@@ -8,7 +8,7 @@
             <div id="kt_app_content_container" class="app-container container-fluid">
                 
                 <!--begin::Welcome Banner-->
-                <div class="card bg-gradient-primary mb-8" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <div class="card bg-gradient-primary mb-8" style="background: linear-gradient(135deg, #050505 0%, #0a0f1f 45%, #1c2a3a 100%);">
                     <div class="card-body py-8">
                         <div class="d-flex align-items-center">
                             <div class="flex-grow-1">
@@ -22,28 +22,66 @@
                     </div>
                 </div>
                 <!--end::Welcome Banner-->
-                
-                <!--begin::Main Stats-->
+
+                @php
+                    $stats = [
+                        [
+                            'count' => $stories_count ?? 0,
+                            'label' => 'Total Stories',
+                            'icon' => 'ki-book-open',
+                            'bg' => 'bg-light-primary',
+                            'badge' => 'badge-light-primary',
+                            'color' => 'text-primary',
+                        ],
+                        [
+                            'count' => $gallery_count ?? 0,
+                            'label' => 'Total Photo Album',
+                            'icon' => 'ki-picture',
+                            'bg' => 'bg-light-info',
+                            'badge' => 'badge-light-info',
+                            'color' => 'text-info',
+                        ],
+                        [
+                            'count' => $film_count ?? 0,
+                            'label' => 'Total Films',
+                            'icon' => 'ki-video',
+                            'bg' => 'bg-light-success',
+                            'badge' => 'badge-light-success',
+                            'color' => 'text-success',
+                        ],
+                          [
+                            'count' => $products_count ?? 0,
+                            'label' => 'Total Products',
+                            'icon' => 'ki-basket',
+                            'bg' => 'bg-light-warning',
+                            'badge' => 'badge-light-warning',
+                            'color' => 'text-warning',
+                        ],
+                    ];
+                @endphp
+
+
                 <div class="row g-5 g-xl-8 mb-5 mb-xl-8">
-                    <!--begin::Products-->
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="card card-flush h-100 shadow-sm hover-elevate-up">
-                            <div class="card-body d-flex flex-column">
-                                <div class="d-flex align-items-center justify-content-between mb-5">
-                                    <div class="symbol symbol-50px bg-light-warning">
-                                        <i class="ki-outline ki-basket fs-2x text-warning"></i>
+                    @foreach($stats as $item)
+                        <div class="col-sm-6 col-xl-3">
+                            <div class="card card-flush h-100 shadow-sm hover-elevate-up">
+                                <div class="card-body d-flex flex-column">
+                                    <div class="d-flex align-items-center justify-content-between mb-5">
+                                        <div class="symbol symbol-50px {{ $item['bg'] }}">
+                                            <i class="ki-outline {{ $item['icon'] }} fs-2x {{ $item['color'] }}"></i>
+                                        </div>
+                                        <span class="{{ $item['badge'] }} fs-7 fw-bold">Active</span>
                                     </div>
-                                    <span class="badge badge-light-warning fs-7 fw-bold">Active</span>
+
+                                    <span class="text-gray-900 fw-bold fs-2x mb-2">{{ $item['count'] }}</span>
+                                    <span class="text-gray-500 fw-semibold fs-6">{{ $item['label'] }}</span>
                                 </div>
-                                <span class="text-gray-900 fw-bold fs-2x mb-2">{{$products_count ?? 0}}</span>
-                                <span class="text-gray-500 fw-semibold fs-6">Total Products</span>
                             </div>
                         </div>
-                    </div>
-                    <!--end::Products-->
+                    @endforeach
                 </div>
-                <!--end::Main Stats-->
-                
+
+
             </div>
             <!--end::Content container-->
         </div>

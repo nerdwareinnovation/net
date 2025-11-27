@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Films;
+use App\Models\Galleries;
 use App\Models\Products;
+use App\Models\Stories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,9 +29,15 @@ class HomeController extends Controller
     public function index()
     {
         $products_count = Products::count();
-        
-        return view('home')->with(compact(
-            'products_count'
+        $stories_count = Stories::count();
+        $gallery_count = Galleries::count();
+        $film_count = Films::count();
+
+        return view('home', compact(
+            'products_count',
+            'stories_count',
+            'gallery_count',
+            'film_count'
         ));
     }
 
