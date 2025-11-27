@@ -94,6 +94,13 @@
         aspect-ratio: 2 / 3;
     }
 
+    @media screen and (max-width: 1300px) {
+        .film-poster-card img {
+
+        }
+    }
+
+
     .film-meta-card {
         color: #fff;
         padding-bottom: 8px;
@@ -521,7 +528,7 @@ transition-delay: 0.1s;
         }
 
         .film-poster-card {
-            width: min(420px, 60vw);
+            width: min(220px, 60vw);
             justify-self: start;
         }
     }
@@ -538,9 +545,13 @@ transition-delay: 0.1s;
         .film-details-main {
             padding: 32px;
         }
+        .film-detail-poster.is-fixed{
+            position: static;
+        }
     }
 
     @media (max-width: 768px) {
+
         .film-hero {
             min-height: 90vh;
         }
@@ -550,7 +561,8 @@ transition-delay: 0.1s;
         }
 
         .film-poster-card {
-            width: 100%;
+            /*width: 100%;*/
+            width: min(220px, 60vw);
         }
 
         .film-title {

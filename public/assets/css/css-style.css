@@ -4435,6 +4435,20 @@ body.os-windows .popup::-webkit-scrollbar-thumb {
   .tour-slider .tour_item {
     height: 285px;
   }
+
+  .tour-slider .tour_item_bottom ._title {
+    /*font-size: 20px;*/
+    /*margin-bottom: 12px;*/
+    text-wrap: auto;
+  }
+
+  .tour-slider .tour_item_bottom ._description {
+    /*font-size: 15px;*/
+    /*margin-bottom: 16px;*/
+    /*line-height: 1.65;*/
+    text-wrap: auto;
+  }
+
   .search-form {
     padding: 40px 30px;
     height: auto;
@@ -5539,8 +5553,9 @@ body.os-windows .popup::-webkit-scrollbar-thumb {
     padding: 24px;
   }
   .tour-slider .tour_item_wrapper {
-    width: 100%;
-    margin-right: 0;
+    /*width: 100%;*/
+    width: 340px!important;
+    /*margin-right: 0;*/
     margin-bottom: 30px;
   }
   .tour-slider .tour_item {
@@ -5553,14 +5568,16 @@ body.os-windows .popup::-webkit-scrollbar-thumb {
   }
   
   .tour-slider .tour_item_bottom ._title {
-    font-size: 26px;
+    font-size: 20px;
     margin-bottom: 12px;
+    text-wrap: auto;
   }
   
   .tour-slider .tour_item_bottom ._description {
     font-size: 15px;
     margin-bottom: 16px;
     line-height: 1.65;
+    text-wrap: auto;
   }
   
   .tour-slider .tour_item_bottom ._info_left {
@@ -5714,7 +5731,7 @@ body.os-windows .popup::-webkit-scrollbar-thumb {
     transform: none;
   }
   .mobile .most_popular .section_content .tour-slider .tour_item {
-    width: 300px;
+    width: 340px;
     margin-right: 20px;
     height: 340px;
   }
@@ -12934,8 +12951,9 @@ body.os-windows .popup::-webkit-scrollbar-thumb {
   }
   
   .vimeo-poster-wrapper {
-    width: 100%;
-    height: auto;
+    /*width: 100%;*/
+    /*height: auto;*/
+    width: 350px;
     min-height: 200px;
     padding: 20px;
     order: 2;
@@ -12975,13 +12993,31 @@ body.os-windows .popup::-webkit-scrollbar-thumb {
   }
 }
 
+@media screen and (max-width: 600px) {
+  .vimeo-poster-wrapper {
+    width: 250px;
+    min-height: 200px;
+    padding: 20px;
+  }
+  .vimeo-overlay{
+    left: 300px;
+    width: calc(100% - 300px);
+  }
+}
+
 @media screen and (max-width: 480px) {
   .vimeo-poster-wrapper {
-    padding: 15px;
+    padding: 0px;
+    width: 200px;
   }
   
   .vimeo-overlay {
     padding: 20px 15px;
+    left: 200px;
+    width: calc(100% - 200px);
+  }
+  .vimeo-poster{
+    padding: 10px;
   }
   
   .vimeo-title {
@@ -14699,6 +14735,20 @@ body.films-page {
 }
 
 /* Responsive Styles for Films Slider */
+@media screen and (max-width: 1500px) {
+  .film-poster-item {
+    width: 30vw;
+    height: 80vh;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .film-poster-item {
+    width: 35vw;
+    height: 90vh;
+  }
+}
+
 @media screen and (max-width: 991px) {
   .films-slider-container {
     padding: 0 1.5%;
@@ -14706,8 +14756,8 @@ body.films-page {
   }
   
   .film-poster-item {
-    width: 27vw;
-    height: 80vh;
+    width: 45vw;
+    height: 85vh;
   }
 }
 
@@ -14722,7 +14772,14 @@ body.films-page {
   }
   
   .film-poster-item {
-    width: 27vw;
-    height: 75vh;
+    width: 55vw;
+    height: 90vh;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .film-poster-item {
+    width: 85vw;
+    height: 90vh;
   }
 }
