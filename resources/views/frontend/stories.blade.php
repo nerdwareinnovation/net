@@ -15,7 +15,7 @@
 
         <!-- Stories Listing Section -->
         <div class="stories-listing-section" style="padding-top: 0px; padding-bottom: 80px;">
-            <div class="wrap" style="padding: 0 50px 0 50px; max-width: none;">
+            <div class="wrap" id="stories-wrap" style="padding: 0 50px 0 50px; max-width: none;">
                 <div class="wrap_float">
                     <div class="blog-grid">
                         <div class="row">

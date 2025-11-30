@@ -95,9 +95,9 @@
     }
 
     @media screen and (max-width: 1300px) {
-        .film-poster-card img {
+        /*.film-poster-card img {*/
 
-        }
+        /*}*/
     }
 
 
@@ -579,8 +579,37 @@ transition-delay: 0.1s;
     }
 
     @media (max-width: 600px) {
+        .film-hero{
+            min-height: 90vh;
+        }
         .film-gallery-grid {
             grid-template-columns: 1fr;
+        }
+        .film-poster-card {
+            /*width: 100%;*/
+            width: min(150px, 60vw);
+        }
+    }
+
+    @media (max-width: 500px) {
+        .film-hero{
+            min-height: 80vh;
+        }
+        .film-hero-content {
+            padding: 90px 0 100px;
+        }
+        .film-play-button{
+            top: 250px;
+            bottom: auto;
+        }
+        /*.film-details-grid {*/
+        /*    !*grid-template-columns:minmax(180px, 0.5fr) minmax(0, 1.5fr);*!*/
+        /*}*/
+        .film-detail-poster img{
+            aspect-ratio: 1 / 1;
+        }
+        .film-details-header h2{
+            margin-bottom: 10px;
         }
     }
 </style>
@@ -823,7 +852,10 @@ transition-delay: 0.1s;
             requestAnimationFrame(updateStickyPoster);
         });
 
-        if ('IntersectionObserver' in window && filmDetailsSection) {
+        // SHOW EARLY ON SMALL SCREENS
+        if (window.innerWidth < 600) {
+            stickyPoster.classList.add('is-visible');
+        }else if('IntersectionObserver' in window && filmDetailsSection) {
             const visibilityObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {

@@ -75,6 +75,22 @@
         (function() {
             'use strict';
 
+            const style = document.createElement('style');
+            style.textContent = `
+    .film-thumbnail {
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        background-color: transparent !important;
+    }
+
+    .film-poster, .film-item {
+        background-color: transparent !important;
+    }
+`;
+            document.head.appendChild(style);
+
             const section = document.getElementById('films-listing-section');
             const container = document.getElementById('films-container');
             const items = Array.from(document.querySelectorAll('.film-item'));
@@ -264,6 +280,8 @@
                 }
 
                 container.style.transform = `translate3d(${panX}px, ${panY}px, 0)`;
+                container.style.webkitTransform = `translate3d(${panX}px, ${panY}px, 0)`;
+                container.style.transform = `translate3d(${panX}px, ${panY}px, 0)`;
             }
 
             // Wheel handler (trackpad and mouse wheel)
@@ -356,6 +374,8 @@
                         panY = dragStartPanY + deltaY;
 
                         container.style.transition = 'none';
+                        container.style.transform = `translate3d(${panX}px, ${panY}px, 0)`;
+                        container.style.webkitTransform = `translate3d(${panX}px, ${panY}px, 0)`;
                         container.style.transform = `translate3d(${panX}px, ${panY}px, 0)`;
 
                         e.preventDefault();

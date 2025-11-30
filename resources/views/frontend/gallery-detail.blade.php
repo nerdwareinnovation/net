@@ -405,7 +405,7 @@
                 font-size: 25px;
             }
             .section-gallery-desc p{
-                font-size: 28px;
+                font-size: 24px;
             }
         }
 

@@ -84,13 +84,13 @@
                                 @endif
                                 <div class="mission-text">
                                     <h2 class="mission-title">{{$section->title}}</h2>
-                                    {!! $section->description !!}
+                                    <p>{!! $section->description !!}</p>
                                 </div>
                             @else
                                 <!-- Image on right for odd sections -->
                                 <div class="vision-text">
                                     <h2 class="vision-title">{{$section->title}}</h2>
-                                    {!! $section->description !!}
+                                    <p>{!! $section->description !!}</p>
                                 </div>
                                 @if($section->image)
                                 <div class="vision-image">
@@ -103,7 +103,5 @@
                 </div>
             </div>
         @endforeach
-
-        </div>
 @endsection
 

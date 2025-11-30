@@ -155,6 +155,9 @@
         .story-slide {
             height: 400px;
         }
+        .story-images-slider-section{
+            padding: 20px 0;
+        }
     }
 </style>
 @endpush
@@ -173,7 +176,7 @@
                     arrows: true,
                     dots: true,
                     fade: true,
-                    speed: 600,
+                    speed: 200,
                     infinite: true,
                     pauseOnHover: true,
                     pauseOnFocus: false,

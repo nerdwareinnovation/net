@@ -97,7 +97,7 @@
                                        $firstChildImage = $getFirstGalleryChildImage($item->child_images ?? []);
                                        $image = $item->thumbnail ?? ($firstChildImage ?: 'assets/images/specials/1.webp');
                                        $title = $item->title;
-                                       $description = Str::limit(strip_tags($item->description ?? ''), 120);
+                                       $description = Str::limit(strip_tags($item->description ?? ''), 80);
                                        $link = route('front.gallery');
                                        $date = $item->created_at->format('M d, Y');
                                    }
