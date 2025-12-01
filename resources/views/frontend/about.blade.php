@@ -55,7 +55,8 @@
         </div>
 
         <!-- Description Section After Video -->
-        @if(@$aboutSettings && @$aboutSettings->description)
+{{--        @if(@$aboutSettings && @$aboutSettings->description)--}}
+        @if(!empty($aboutSettings?->description))
         <div class="about-description-section">
             <div class="wrap">
                 <div class="wrap_float">
