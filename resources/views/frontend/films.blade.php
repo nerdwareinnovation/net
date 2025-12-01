@@ -53,6 +53,8 @@
             
             // Clone all poster items for infinite scroll
             function clonePosterItems() {
+                // Do NOT clone if there is only one item
+                if (posterItems.length <= 1) return;
                 posterItems.forEach((item) => {
                     const clone = item.cloneNode(true);
                     clone.classList.add('cloned-item');
