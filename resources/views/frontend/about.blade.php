@@ -68,6 +68,8 @@
                 </div>
             </div>
         </div>
+        @else
+            <div style="min-height: 3vh;"></div>
         @endif
 
         <!-- Dynamic Sections -->
