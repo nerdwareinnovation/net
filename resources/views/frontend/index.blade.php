@@ -210,8 +210,8 @@
                            }
                        @endphp
                        <div class="latest_stories_item_wrapper">
-                           <a href="{{$link}}" class="tour_item" style="background-image: url({{asset($image)}})">
-                               <div class="shadow js-shadow" style="background-image: url({{asset($image)}})"></div>
+                           <a href="{{$link}}" class="tour_item" style="background-image: url('{{asset($image)}}')">
+                               <div class="shadow js-shadow" style="background-image: url('{{asset($image)}}')"></div>
                            </a>
                            <div class="tour_item_bottom">
                                <h3 class="_title">
