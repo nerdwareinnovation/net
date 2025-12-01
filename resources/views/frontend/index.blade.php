@@ -7,7 +7,7 @@
            <div class="slider_wrap" id="main_slider_wrap">
                @foreach($banners as $index => $banner)
                <div class="slide">
-                   <div class="bg-img" style="background-image: url({{$banner->image ? asset($banner->image) : asset('assets/images/main-banner.webp')}})"></div>
+                   <div class="bg-img" style="background-image: url('{{$banner->image ? asset($banner->image) : asset('assets/images/main-banner.webp')}}')"></div>
                    <div class="wrap">
                        <div class="wrap_float js_height">
                            <div class="slide_content">
@@ -102,8 +102,8 @@
                                        $date = $item->created_at->format('M d, Y');
                                    }
                                @endphp
-                               <a href="{{$link}}" class="tour_item" style="background-image: url({{asset($image)}})">
-                                   <div class="shadow js-shadow" style="background-image: url({{asset($image)}})"></div>
+                               <a href="{{$link}}" class="tour_item" style="background-image: url('{{asset($image)}}')">
+                                   <div class="shadow js-shadow" style="background-image: url('{{asset($image)}}')"></div>
                                </a>
                                <div class="tour_item_bottom">
                                    <h3 class="_title">
