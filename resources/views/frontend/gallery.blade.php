@@ -206,7 +206,13 @@
                 const padding = 100;
 
                 // Calculate how many times we need to repeat content to fill viewport
-                const horizontalRepeats = Math.ceil(screenWidth / viewportWidth) + 3;
+                // const horizontalRepeats = Math.ceil(screenWidth / viewportWidth) + 3;
+                let horizontalRepeats = Math.ceil(screenWidth / viewportWidth) + 3;
+
+                // If screen is wider than 768px, force more clones
+                if (window.innerWidth > 768) {
+                    horizontalRepeats += 4; // add more horizontal clone bands
+                }
                 const verticalRepeats = Math.ceil(screenHeight / viewportHeight) + 3;
 
                 // Create enough clones to fill and surround viewport
@@ -516,8 +522,13 @@
                 originalContainerHeight = actualContentHeight;
 
                 // Calculate repeats needed to fill viewport
-                const horizontalRepeats = Math.ceil(containerWidth / originalContainerWidth) + 3;
-                const verticalRepeats = Math.ceil(containerHeight / originalContainerHeight) + 3;
+                let horizontalRepeats = Math.ceil(containerWidth / originalContainerWidth) + 3;
+                let verticalRepeats = Math.ceil(containerHeight / originalContainerHeight) + 3;
+
+                if (window.innerWidth > 768) {
+                    horizontalRepeats += 4;  // add 4 more clone columns
+                    // verticalRepeats   += 2;  // (optional) add more rows too
+                }
 
                 const initialWidth = originalContainerWidth * (horizontalRepeats * 2 + 1) + padding * 2;
                 const initialHeight = originalContainerHeight * (verticalRepeats * 2 + 1) + padding * 2;
