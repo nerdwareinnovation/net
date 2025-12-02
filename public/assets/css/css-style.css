@@ -14763,6 +14763,12 @@ body.films-page {
     width: 30vw;
     height: 80vh;
   }
+  .film-item:hover .film-thumbnail {
+    opacity: 1;
+    visibility: visible;
+    /*pointer-events: none;*/
+    /*transition: opacity 0.3s ease, visibility 0s 0.3s;*/
+  }
 }
 
 @media screen and (max-width: 1300px) {
@@ -14797,6 +14803,12 @@ body.films-page {
   .film-poster-item {
     width: 55vw;
     height: 90vh;
+  }
+  .film-item:hover .film-thumbnail {
+    opacity: 1;
+    visibility: visible;
+    /*pointer-events: none;*/
+    /*transition: opacity 0.3s ease, visibility 0s 0.3s;*/
   }
 }
 
