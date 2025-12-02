@@ -71,7 +71,6 @@
     <!-- Gallery Script - Clean Simple Masonry -->
     <script>
         // Optimized Gallery Script - Mobile Friendly with Responsive Columns
-        // Optimized Gallery Script - Mobile Friendly with Responsive Columns
         (function() {
             'use strict';
 
@@ -96,11 +95,28 @@
             const items = Array.from(document.querySelectorAll('.film-item'));
 
             // Responsive column calculation
+            // function getColumnCount() {
+            //     const width = window.innerWidth;
+            //     if (width < 480) return 1; // Mobile portrait
+            //     if (width < 768) return 2; // Mobile landscape / small tablet
+            //     return 3; // Desktop
+            // }
             function getColumnCount() {
                 const width = window.innerWidth;
-                if (width < 480) return 1; // Mobile portrait
-                if (width < 768) return 2; // Mobile landscape / small tablet
-                return 3; // Desktop
+                const totalItems = items.length;
+
+                // MOBILE
+                if (width < 480) return 1;
+                if (width < 768) return 2;
+
+                // DESKTOP — AUTO CALCULATE TO AVOID EMPTY SPACES
+                if (totalItems <= 3) return totalItems;   // 1, 2, or 3 items fill perfectly
+                if (totalItems === 4) return 4;          // ← FIX FOR YOUR ISSUE
+                if (totalItems === 5) return 5;          // also solves 5-item gaps
+                if (totalItems === 6) return 3;          // balanced layout
+
+                // GENERAL CASE (fallback)
+                return Math.min(4, totalItems);
             }
 
             // Infinite scroll state
@@ -206,13 +222,7 @@
                 const padding = 100;
 
                 // Calculate how many times we need to repeat content to fill viewport
-                // const horizontalRepeats = Math.ceil(screenWidth / viewportWidth) + 3;
-                let horizontalRepeats = Math.ceil(screenWidth / viewportWidth) + 3;
-
-                // If screen is wider than 768px, force more clones
-                if (window.innerWidth > 768) {
-                    horizontalRepeats += 4; // add more horizontal clone bands
-                }
+                const horizontalRepeats = Math.ceil(screenWidth / viewportWidth) + 3;
                 const verticalRepeats = Math.ceil(screenHeight / viewportHeight) + 3;
 
                 // Create enough clones to fill and surround viewport
@@ -522,13 +532,8 @@
                 originalContainerHeight = actualContentHeight;
 
                 // Calculate repeats needed to fill viewport
-                let horizontalRepeats = Math.ceil(containerWidth / originalContainerWidth) + 3;
-                let verticalRepeats = Math.ceil(containerHeight / originalContainerHeight) + 3;
-
-                if (window.innerWidth > 768) {
-                    horizontalRepeats += 4;  // add 4 more clone columns
-                    // verticalRepeats   += 2;  // (optional) add more rows too
-                }
+                const horizontalRepeats = Math.ceil(containerWidth / originalContainerWidth) + 3;
+                const verticalRepeats = Math.ceil(containerHeight / originalContainerHeight) + 3;
 
                 const initialWidth = originalContainerWidth * (horizontalRepeats * 2 + 1) + padding * 2;
                 const initialHeight = originalContainerHeight * (verticalRepeats * 2 + 1) + padding * 2;
