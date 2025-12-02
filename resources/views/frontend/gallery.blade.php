@@ -111,7 +111,7 @@
 
                 // DESKTOP — AUTO CALCULATE TO AVOID EMPTY SPACES
                 if (totalItems <= 3) return totalItems;   // 1, 2, or 3 items fill perfectly
-                if (totalItems === 4) return 4;          // ← FIX FOR YOUR ISSUE
+                if (totalItems === 4) return 2;          // ← FIX FOR YOUR ISSUE
                 if (totalItems === 5) return 5;          // also solves 5-item gaps
                 if (totalItems === 6) return 3;          // balanced layout
 
