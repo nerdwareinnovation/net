@@ -14805,6 +14805,12 @@ body.films-page {
       width: 85vw;
       height: 90vh;
     }
+    .film-item:hover .film-thumbnail {
+      opacity: 1;
+      visibility: visible;
+      /*pointer-events: none;*/
+      /*transition: opacity 0.3s ease, visibility 0s 0.3s;*/
+    }
     .stories-listing-section {
       padding-top: 0px !important;
       padding-bottom: 60px !important;
