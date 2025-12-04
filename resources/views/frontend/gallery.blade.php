@@ -1768,15 +1768,15 @@ $hideFooter = true;
             60%
         </div>
         <div class="switch" id="controls">
-            <button class="switch-button" onclick="gallery.setZoom(0.3, this)">
+            <button class="switch-button" onclick="gallery.setZoom(0.6, this)">
                 <span class="indicator-dot"></span>
                 ZOOM OUT
             </button>
-            <button class="switch-button switch-button-current" onclick="gallery.setZoom(0.6, this)">
+            <button class="switch-button switch-button-current" onclick="gallery.setZoom(1.2, this)">
                 <span class="indicator-dot"></span>
                 NORMAL
             </button>
-            <button class="switch-button" onclick="gallery.setZoom(1.0, this)">
+            <button class="switch-button" onclick="gallery.setZoom(1.5, this)">
                 <span class="indicator-dot"></span>
                 ZOOM IN
             </button>
@@ -1986,7 +1986,7 @@ $hideFooter = true;
                     baseGap: 16,
                     rows: 8,
                     cols: 12,
-                    currentZoom: 0.6,
+                    currentZoom: 1.2,
                     currentGap: 32 };
 
                 // State
@@ -2143,8 +2143,10 @@ $hideFooter = true;
                     }
 
                     if (gallery.child_images && Array.isArray(gallery.child_images)) {
-                        gallery.child_images.forEach(img => {
+
+                        gallery.child_images.slice(0, 4).forEach(img => {
                             const imgUrl = typeof img === "string" ? img : img.url;
+
                             if (imgUrl) {
                                 const full = imgUrl.startsWith("http")
                                     ? imgUrl
@@ -2153,6 +2155,7 @@ $hideFooter = true;
                                 if (!images.includes(full)) images.push(full);
                             }
                         });
+
                     }
 
                     // If nothing found, use fallback
