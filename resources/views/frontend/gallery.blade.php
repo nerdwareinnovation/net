@@ -1423,6 +1423,26 @@
             overflow: hidden;
         }
 
+        @media (max-width: 600px) {
+            .split-left {
+                width: 70vw;
+            }
+            .split-right {
+                width: 30vw;
+            }
+            .image-slide-description{
+                max-width: 200px;
+            }
+            .image-slide-title h1{
+                font-size: 28px;
+            }
+            .redirect-button{
+                left: 60%!important;
+            }
+            .controls-container.split-mode{
+                display: none;
+            }
+        }
         @media (max-width: 900px) {
             .image-title-overlay {
                 bottom: 20px;
@@ -2255,6 +2275,8 @@ $hideFooter = true;
                 this.canvasWrapper.style.height = this.gridDimensions.height + "px";
                 this.gridContainer.innerHTML = "";
                 this.gridItems = [];
+                //Android Patch
+                const tapThreshold = 10;
 
                 let imageIndex = 0;
                 for (let row = 0; row < this.config.rows; row++) {
@@ -2298,6 +2320,33 @@ $hideFooter = true;
                                 this.enterZoomMode(itemData);
                             }
                         });
+
+                        //Android Drag/Touch Patch
+                        item._touchStartX = 0;
+                        item._touchStartY = 0;
+
+                        item.addEventListener("touchstart", (e) => {
+                            const touch = e.touches[0];
+                            item._touchStartX = touch.clientX;
+                            item._touchStartY = touch.clientY;
+                        });
+
+                        item.addEventListener("touchend", (e) => {
+                            const touch = e.changedTouches[0];
+                            const deltaX = Math.abs(touch.clientX - item._touchStartX);
+                            const deltaY = Math.abs(touch.clientY - item._touchStartY);
+
+                            if (deltaX < tapThreshold && deltaY < tapThreshold) {
+                                e.preventDefault();
+                                if (!this.zoomState.isActive) {
+                                    this.soundSystem.play("click");
+                                    this.enterZoomMode(itemData);
+                                }
+                            }
+                        });
+                        //Android Drag/Touch Patch
+
+
                         this.gridContainer.appendChild(item);
                         this.gridItems.push(itemData);
                     }
@@ -2393,6 +2442,7 @@ $hideFooter = true;
                 return overlay;
             }
             enterZoomMode(selectedItemData) {
+                console.log(111)
                 if (this.zoomState.isActive) return;
                 this.zoomState.isActive = true;
                 this.zoomState.selectedItem = selectedItemData;
