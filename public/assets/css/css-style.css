@@ -14767,7 +14767,9 @@ body.films-page {
 
 @media screen and (max-width: 1300px) {
   .film-poster-item {
-    width: 35vw;
+    /*width: 35vw;*/
+    /*height: 90vh;*/
+    width: auto;
     height: 90vh;
   }
 }
@@ -14808,8 +14810,8 @@ body.films-page {
 
 @media screen and (max-width: 600px) {
     .film-poster-item {
-      width: 85vw;
-      height: 90vh;
+      width: 92vw;
+      height: 80vh;
     }
     .film-item:hover .film-thumbnail {
       opacity: 1;

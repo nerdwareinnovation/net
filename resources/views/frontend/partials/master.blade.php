@@ -53,7 +53,9 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Prata&amp;display=swap" rel="stylesheet">
     <meta name="robots" content="noindex, nofollow">
+{{--    @if(\Request::route()->getName() != 'front.gallery')--}}
     <link rel="stylesheet" href="{{asset('assets/css/css-style.css')}}">
+{{--    @endif--}}
     
     <!-- Mobile Menu Styles - Simple and Clean -->
     <style>
